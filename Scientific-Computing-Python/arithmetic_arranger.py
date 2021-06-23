@@ -4,15 +4,15 @@ def arithmetic_arranger(problems):
 
     def getAnswer(x):
         if x[1] == "+":
-            return x[0] + x[2]
+            return str(int(x[0]) + int(x[2]))
         else:
-            return x[0] - x[2]
+            return str(int(x[0]) - int(x[2]))
     
     maxOperand = 4
     operators = ["+", "-"]
-    probs = [x.split(" ") for x in problems]
+    problems = [x.split(" ") for x in problems]
     #print(probs)
-    for x in probs:
+    for x in problems:
         if len(x[0]) > 4 or len(x[2]) > 4:
             return "Error: Numbers cannot be more than four digits."
         if not x[1] in operators:
@@ -26,11 +26,9 @@ def arithmetic_arranger(problems):
         numDashes = max(len(x[0]), len(x[2])) + 2
         dashes = list("_") * numDashes
         x.append("".join(dashes))
-        x[0] = int(x[0])
-        x[2] = int(x[2])
         x.append(getAnswer(x))
         
-    print(probs)
+    print(problems)
 
         
 
