@@ -38,8 +38,7 @@ def add_time(start, duration, *day):
         newDayIndex = index + daysLater % 7
         if newDayIndex > 6:
             newDayIndex -= 7
-        newDay = dayNames[newDayIndex]
-        newDay = newDay.capitalize()
+        newDay = dayNames[newDayIndex].capitalize()
 
     result = hours + ":" + minutes + " " + ampm
     if day:
