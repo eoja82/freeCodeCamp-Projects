@@ -27,7 +27,6 @@ def arithmetic_arranger(problems, *printAnswer):
         x.append("".join(dashes))
         x.append(getAnswer(x))
         
-    #print(problems)
     result = ""
 
     for i in range(4):
@@ -51,7 +50,7 @@ def arithmetic_arranger(problems, *printAnswer):
                 result = result + problems[l][3] + "    "
                 if l == len(problems) - 1:
                     result = result[0:-4]
-            if printAnswer:
+            if printAnswer and printAnswer[0] == True:
                 result = result + "\n"
                 for m in range(len(problems)):
                     spaces = len(problems[m][3]) - len(problems[m][4])
@@ -60,11 +59,11 @@ def arithmetic_arranger(problems, *printAnswer):
                         result = result[0:-4]
         
     return result
-    #return arranged_problems
 
+# for development testing
 print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]))
 print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True))
-""" print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "1 + 2", "5 + 3"]))
+print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "1 + 2", "5 + 3"]))
 print(arithmetic_arranger(["32 + 698", "38019 - 2999", "45 + 43", "123 + 49"]))
 print(arithmetic_arranger(["32 + 698", "3801 * 2", "45 + 43", "123 + 49"]))
-print(arithmetic_arranger(["32 + 688", "3801 + 2", "45 + J80", "123 + 49"])) """
+print(arithmetic_arranger(["32 + 688", "3801 + 2", "45 + J80", "123 + 49"]))
