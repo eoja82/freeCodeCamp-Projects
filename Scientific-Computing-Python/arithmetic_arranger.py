@@ -23,7 +23,7 @@ def arithmetic_arranger(problems, *printAnswer):
             if ord(char) < 48 or ord(char) > 57:
                 return "Error: Numbers must only contain digits."
         numDashes = max(len(x[0]), len(x[2])) + 2
-        dashes = list("_") * numDashes
+        dashes = list("-") * numDashes
         x.append("".join(dashes))
         x.append(getAnswer(x))
         
@@ -32,31 +32,39 @@ def arithmetic_arranger(problems, *printAnswer):
 
     for i in range(4):
         if i == 0:
-            for x in problems:
-                result = result + (" " * (len(x[3]) - len(x[0]))) + x[0] + "    "
+            for j in range(len(problems)):
+                result = result + (" " * (len(problems[j][3]) - len(problems[j][0]))) + problems[j][0] + "    "
+                if j == len(problems) - 1:
+                    result = result[0:-4]
             result = result + "\n"
         if i == 1:
-            for x in problems:
-                spaces = len(x[0]) - len(x[2]) if len(x[0]) > len(x[2]) else 0
-                result = result + x[1] + " " + (" " * spaces) + x[2] + "    "
+            for k in range(len(problems)):
+                spaces = len(problems[k][0]) - len(problems[k][2]) if len(problems[k][0]) > len(problems[k][2]) else 0
+                result = result + problems[k][1] + " " + (" " * spaces) + problems[k][2] + "    "
+                if k == len(problems) - 1:
+                    result = result[0:-4]
             result = result + "\n"
         if i == 2:
             continue
         if i == 3:
-            for x in problems:
-                result = result + x[3] + "    "
+            for l in range(len(problems)):
+                result = result + problems[l][3] + "    "
+                if l == len(problems) - 1:
+                    result = result[0:-4]
             if printAnswer:
                 result = result + "\n"
-                for x in problems:
-                    spaces = len(x[3]) - len(x[4])
-                    result = result + (" " * spaces) + x[4] + "    "
+                for m in range(len(problems)):
+                    spaces = len(problems[m][3]) - len(problems[m][4])
+                    result = result + (" " * spaces) + problems[m][4] + "    "
+                    if m == len(problems) - 1:
+                        result = result[0:-4]
         
     return result
     #return arranged_problems
 
 print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]))
 print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True))
-print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "1 + 2", "5 + 3"]))
+""" print(arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43", "123 + 49", "1 + 2", "5 + 3"]))
 print(arithmetic_arranger(["32 + 698", "38019 - 2999", "45 + 43", "123 + 49"]))
 print(arithmetic_arranger(["32 + 698", "3801 * 2", "45 + 43", "123 + 49"]))
-print(arithmetic_arranger(["32 + 688", "3801 + 2", "45 + J80", "123 + 49"]))
+print(arithmetic_arranger(["32 + 688", "3801 + 2", "45 + J80", "123 + 49"])) """
