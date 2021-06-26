@@ -55,6 +55,33 @@ class Category:
         
         return string
 
+def create_spend_chart(categories):
+    result = ""
+    grid = {100: "100| ", 90: " 90| ", 80: " 80| ", 70: " 70| ", 60: " 60| ", 50: " 50| ", 40: " 40| ", 30: " 30| ", 20: " 20| ", 10: " 10| ", 0: "  0| "}
+    totalSpent = 0
+    spentInEachCat = []
+    for cat in categories:
+        spent = 0
+        for x in cat.ledger:
+            if x["amount"] < 0:
+                totalSpent += abs(x["amount"])
+                spent += abs(x["amount"])
+        spentInEachCat.append(spent)
+    spentInEachCat = [round((x / totalSpent) * 100) for x in spentInEachCat]
+    print(totalSpent, spentInEachCat)
+    for ave in spentInEachCat:
+        for k, v in grid.items():
+            if ave >= k:
+                grid[k] = grid[k] + "o  "
+            else:
+                grid[k] = grid[k] + "   "
+    for k, v in grid.items():
+        print(v + "\n")
+
+
+
+            
+
 # for development testing
 food = Category("Food")
 food.deposit(50)
@@ -66,12 +93,7 @@ clothing.deposit(45, "deposit")
 clothing.deposit(20000, "putting lots of money in with long description")
 food.transfer(1000, clothing)
 food.transfer(10, clothing)
-#print(food.ledger)
-print(food)
-#print(clothing.ledger)
-print(clothing)
+clothing.withdraw(25, "new shoes")
 shoes = Category("shoes")
-print(shoes)
-
-def create_spend_chart(categories):
-    pass
+#print(shoes)
+print(create_spend_chart([shoes, food, clothing]))
