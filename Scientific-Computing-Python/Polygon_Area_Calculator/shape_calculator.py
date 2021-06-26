@@ -34,12 +34,21 @@ class Rectangle:
     def __str__(self):
         return f"Rectangle(width={str(self.width)}, height={str(self.height)})"
 
-class Square:
-    pass
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
 
-rect = Rectangle(10, 5)
-print(rect.get_area())
-rect.set_height(3)
-print(rect.get_perimeter())
-print(rect)
-print(rect.get_picture())
+    def set_side(self, side):
+        self.width = side
+        self.height = side
+
+    def set_width(self, width):
+        self.width = width
+        self.height = width
+
+    def set_height(self, height):
+        self.width = height
+        self.height = height
+
+    def __str__(self):
+        return f"Square(side={self.width})"
