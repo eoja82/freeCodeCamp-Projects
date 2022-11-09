@@ -1,5 +1,5 @@
-## Learn SQL by Building a Student Database: Part 2
+## Learn Advanced Bash by Building a Kitty Ipsum Translator
 
-SQL join commands are used to combine information from multiple tables in a relational database
+There's more to Bash commands than you might think.
 
-In this 140-lesson course, you will complete your student database while diving deeper into SQL commands.
+In this 140-lesson course, you will learn some more complex commands, and the details of how commands work.
