@@ -20,7 +20,8 @@ fi
 
 echo -e "\nGuess the secret number between 1 and 1000:"
 
-SECRET_NUMBER=400
+SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
+echo $SECRET_NUMBER
 GUESSES=0
 
 GUESS() {
@@ -28,6 +29,24 @@ GUESS() {
   then
     if [[ $1 = $SECRET_NUMBER ]]
     then
+      # if new player
+      if [[ -z $USER ]]
+      then
+        # insert game played
+        INSERT_NEW_GAME=$($PSQL "INSERT INTO users(name, games_played, best_game) VALUES('$NAME_ENTERED', 1, $GUESSES)")
+      else
+        # returning player
+        # if new best game
+        if (( $GUESSES < $BG ))
+        then
+          echo best game
+          
+        else
+          # not new best game
+          echo not best game
+          
+        fi    
+      fi
       echo -e "\nYou guessed it in $GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
     elif (( $1 < $SECRET_NUMBER  ))
     then
