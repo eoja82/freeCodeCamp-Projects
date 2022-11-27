@@ -21,23 +21,26 @@ fi
 echo -e "\nGuess the secret number between 1 and 1000:"
 
 SECRET_NUMBER=400
+GUESSES=0
 
 GUESS() {
   if [[ $1 =~ ^[0-9]+$ ]]
   then
     if [[ $1 = $SECRET_NUMBER ]]
     then
-      echo You guessed it
-    elif [[ $1 < $SECRET_NUMBER  ]]
+      echo -e "\nYou guessed it in $GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
+    elif (( $1 < $SECRET_NUMBER  ))
     then
       # higher
       echo -e "\nIt's higher than that, guess again:"
       read NUM_GUESSED
+      GUESSES=$(( $GUESSES + 1 ))
       GUESS $NUM_GUESSED
     else
       # lower
       echo -e "\nIt's lower than that, guess again:"
       read NUM_GUESSED
+      GUESSES=$(( $GUESSES + 1 ))
       GUESS $NUM_GUESSED
     fi
   else
@@ -48,4 +51,5 @@ GUESS() {
 }
 
 read NUM_GUESSED
+GUESSES=$(( $GUESSES + 1 ))
 GUESS $NUM_GUESSED
