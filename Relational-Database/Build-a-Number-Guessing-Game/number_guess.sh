@@ -6,16 +6,14 @@ echo -e "\n~~Number guessing game ~~\n\nEnter your username:"
 
 read NAME_ENTERED
 
-USER=$($PSQL "SELECT games_played, best_game FROM users WHERE name = '$NAME_ENTERED'")
+GP=$($PSQL "SELECT games_played FROM users WHERE name = '$NAME_ENTERED'")
+BG=$($PSQL "SELECT best_game FROM users WHERE name = '$NAME_ENTERED'")
 
-if [[ -z $USER ]]
+if [[ -z $BG ]]
 then
   echo -e "\nWelcome, $NAME_ENTERED! It looks like this is your first time here."
 else
-  echo "$USER" | while read GP BAR BG
-  do
-    echo -e "\nWelcome back, $NAME_ENTERED! You have played $GP games, and your best game took $BG guesses."
-  done  
+  echo -e "\nWelcome back, $NAME_ENTERED! You have played $GP games, and your best game took $BG guesses." | xargs
 fi
 
 echo -e "\nGuess the secret number between 1 and 1000:"
@@ -30,7 +28,7 @@ GUESS() {
     if [[ $1 = $SECRET_NUMBER ]]
     then
       # if new player
-      if [[ -z $USER ]]
+      if [[ -z $BG ]]
       then
         # insert game played
         INSERT_NEW_GAME=$($PSQL "INSERT INTO users(name, games_played, best_game) VALUES('$NAME_ENTERED', 1, $GUESSES)")
@@ -43,8 +41,7 @@ GUESS() {
           
         else
           # not new best game
-          echo not best game
-          
+          UPDATE_GP=$($PSQL "UPDATE users SET games_played = $(( $GP + 1 ))WHERE name = '$NAME_ENTERED'")
         fi    
       fi
       echo -e "\nYou guessed it in $GUESSES tries. The secret number was $SECRET_NUMBER. Nice job!"
